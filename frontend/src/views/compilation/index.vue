@@ -67,6 +67,45 @@
       <span>共 {{ total }} 条数据整编记录</span>
       <span v-if="errorMessage" class="error-text">{{ errorMessage }}</span>
     </footer>
+
+    <section class="gw-batch-section">
+      <header class="batch-section-head">
+        <h3>地下水观测整编待办</h3>
+        <p class="page-desc">
+          与地下水观测的井点列表、异常处理读取同一批次状态；同一批次只出现一次，提交后不重建待办。
+        </p>
+      </header>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>批次编号</th>
+            <th>批次日期</th>
+            <th>计划井点</th>
+            <th>有效观测</th>
+            <th>缺失井点</th>
+            <th>批次状态</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="batch in groundwaterStore.todos" :key="batch.id">
+            <td>{{ batch.batchNo }}</td>
+            <td>{{ batch.batchDate }}</td>
+            <td>{{ batch.summary?.totalWells ?? '—' }}</td>
+            <td>{{ batch.summary?.acceptedWells ?? '—' }}</td>
+            <td>{{ (batch.summary?.missingWells ?? []).join('、') || '无' }}</td>
+            <td>{{ batch.status }}</td>
+            <td class="row-actions">
+              <button class="link" type="button" @click="startBatch(batch.id)">开始整编</button>
+            </td>
+          </tr>
+          <tr v-if="!groundwaterStore.todos.length">
+            <td colspan="7" class="empty-state">暂无地下水观测整编待办</td>
+          </tr>
+        </tbody>
+      </table>
+      <p v-if="batchMessage" class="page-foot error-text">{{ batchMessage }}</p>
+    </section>
   </section>
 </template>
 
@@ -80,6 +119,14 @@ import {
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
+import { useGroundwaterStore } from '@/stores/groundwater'
+
+const groundwaterStore = useGroundwaterStore()
+const batchMessage = ref('')
+
+function startBatch(batchId: string) {
+  batchMessage.value = groundwaterStore.startCompilation(batchId).message
+}
 
 const meta = moduleMeta('compilation')
 const columns = ["成果编号", "整编年份", "站点编号", "整编类型", "原始记录数", "整编人", "审核人", "整编状态"]

@@ -35,3 +35,29 @@ body { margin: 0; background: #f6f8fb; color: #1f2937; }
 .error-text { color: #b42318; }
 .status-legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 10px; font-size: 12px; color: var(--muted); }
 .legend-item { background: #eef2f7; border-radius: 999px; padding: 2px 10px; }
+
+/* 地下水批次流转 */
+.gw-tabs { display: flex; gap: 8px; margin: 10px 0 14px; }
+.gw-tab { border: 1px solid var(--border); background: #fff; border-radius: 8px 8px 0 0; padding: 8px 16px; cursor: pointer; font-size: 13px; position: relative; }
+.gw-tab.active { border-bottom-color: #fff; color: var(--brand); font-weight: 600; }
+.tab-badge { display: inline-block; min-width: 18px; padding: 0 5px; margin-left: 6px; border-radius: 999px; background: var(--brand); color: #fff; font-size: 11px; text-align: center; }
+.tab-badge.abnormal { background: #d92d20; }
+.gw-panel { background: #fff; border: 1px solid var(--border); border-radius: 0 8px 8px 8px; padding: 14px; }
+.batch-card { border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 14px; background: #fcfdff; }
+.batch-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; gap: 8px; flex-wrap: wrap; }
+.batch-date { color: var(--muted); font-size: 12px; margin-left: 10px; }
+.status-tag { border-radius: 999px; padding: 2px 10px; font-size: 12px; margin-left: 8px; }
+.tag-collecting { background: #eef2f7; color: #475467; }
+.tag-todo { background: #e0ecff; color: #1d4ed8; }
+.tag-abnormal { background: #fee4e2; color: #b42318; }
+.tag-compiling { background: #fef3c7; color: #92400e; }
+.tag-done { background: #dcfae6; color: #067647; }
+.status-tag.failed { background: #fee4e2; color: #b42318; }
+.batch-alert { background: #fef3f2; border: 1px solid #fecdca; color: #b42318; border-radius: 6px; padding: 6px 10px; font-size: 12px; margin: 6px 0; }
+.batch-note { font-size: 12px; color: var(--muted); margin: 8px 0 0; }
+.batch-summary { display: flex; flex-wrap: wrap; gap: 14px; margin: 10px 0 0; font-size: 12px; color: #475467; }
+.entry-form { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border); }
+.entry-form .filter-item input, .entry-form .filter-item select { padding: 5px 8px; border: 1px solid var(--border); border-radius: 6px; }
+.sub-title { margin: 0 0 8px; font-size: 14px; }
+.gw-batch-section { margin-top: 18px; background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+.batch-section-head h3 { margin: 0 0 4px; font-size: 15px; }
