@@ -1,5 +1,6 @@
 import { MODULE_BY_KEY } from '@/data/modules'
 import { allRows, listRows, resetRows, saveRows } from '@/data/local-store'
+import { groundwaterOverview } from '@/data/groundwater-service'
 import type { ActionResult, EntryRow, ModuleMeta, OverviewResult, PageResult } from '@/data/types'
 
 // 会写进数据的「往回走」动作：命中就把这条记录标成异常态，看板上能一眼看出来。
@@ -87,6 +88,11 @@ export function downloadEntries(key: string): void {
 export function loadOverview(): OverviewResult {
   const rows = allRows()
   const modules = [...MODULE_BY_KEY.values()].map((meta) => {
+    if (meta.key === 'groundwater') {
+      // 地下水已改为批次状态流：概览指标与井点列表、整编待办同源，不看旧的通用清单。
+      const summary = groundwaterOverview()
+      return { name: meta.name, ...summary }
+    }
     const entries = rows[meta.key] ?? []
     return {
       name: meta.name,
